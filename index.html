@@ -159,6 +159,29 @@
       background: #1e1b4b;
     }
 
+    /* Letter-style heading layout */
+    .letter-salutation {
+      text-align: left;
+      margin: 0 auto 1rem auto;
+      max-width: 320px;
+      font-family: 'Georgia', serif;
+    }
+
+    .salutation-prefix {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      font-style: italic;
+    }
+
+    .salutation-name {
+      font-size: 1.7rem;
+      color: #f472b6;
+      font-weight: 700;
+      margin-left: 2.5rem;
+      margin-top: 4px;
+      display: block;
+    }
+
     .quote-box {
       padding: 1.5rem;
       background: rgba(255, 255, 255, 0.08);
@@ -192,7 +215,13 @@
 
     <div id="tributeDisplay">
       <img id="teacherPhoto" class="profile-img" src="" alt="Teacher Profile" onerror="handleImageError(this)">
-      <h2 id="teacherName" style="margin-bottom: 0.8rem; color: #f472b6; font-size: 1.8rem; line-height: 1.3;"></h2>
+      
+      <!-- Letter Salutation Block -->
+      <div class="letter-salutation">
+        <span class="salutation-prefix">Respected ,</span>
+        <span id="teacherName" class="salutation-name"></span>
+      </div>
+
       <div class="quote-box">
         <p id="teacherQuote" style="margin: 0; font-size: 1.05rem;"></p>
         <br>
@@ -247,7 +276,6 @@
     }
     animateParticles();
 
-    /* Dataset showing "Prof." / "Dr." in search list */
     const teachers = [
       { name: "Dr. Sanjay Deshmukh", photo: "sanjay_deshmukh.png", quote: "Your leadership, vision, and inspirational teaching inspire us to dream big and work hard toward our goals!" },
       { name: "Prof. Nazahat Balur", photo: "nazahat_balur.png", quote: "Your patience and encouraging teaching style make complex concepts feel effortless. Thank you for always believing in us!" },
@@ -304,8 +332,7 @@
       searchInput.value = teacher.name;
       dropdown.style.display = 'none';
 
-      // Formats header with "Respected ," on its own line above the name
-      document.getElementById('teacherName').innerHTML = `Respected ,<br>${teacher.name}`;
+      document.getElementById('teacherName').innerText = teacher.name;
       document.getElementById('teacherPhoto').src = teacher.photo;
       document.getElementById('teacherQuote').innerText = `“${teacher.quote}”`;
       document.getElementById('tributeDisplay').style.display = 'block';
