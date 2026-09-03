@@ -159,10 +159,11 @@
       background: #1e1b4b;
     }
 
-    /* Centered Letter Salutation Block */
+    /* Formal Letter "To," Indented Layout */
     .letter-salutation {
-      text-align: center;
+      text-align: left;
       margin: 0 auto 1.2rem auto;
+      max-width: 340px;
       font-family: 'Georgia', serif;
     }
 
@@ -174,9 +175,10 @@
     }
 
     .salutation-name {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       color: #f472b6;
       font-weight: 700;
+      margin-left: 2.5rem; /* Creates the letter indentation */
       margin-top: 4px;
       display: block;
     }
@@ -215,7 +217,7 @@
     <div id="tributeDisplay">
       <img id="teacherPhoto" class="profile-img" src="" alt="Teacher Profile" onerror="handleImageError(this)">
       
-      <!-- Centered Letter Salutation Block -->
+      <!-- Letter Salutation Block -->
       <div class="letter-salutation">
         <span class="salutation-prefix">To ,</span>
         <span id="teacherName" class="salutation-name"></span>
