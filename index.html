@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Teacher's Day!</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #090a0f;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #fff;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .music-btn:hover {
+      background: rgba(236, 72, 153, 0.3);
+      border-color: #ec4899;
+      transform: scale(1.05);
+    }
+
+    .card {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      max-width: 580px;
+      width: 100%;
+      animation: floatCard 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-12px); }
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 24px;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6);
+      background-size: 200% auto;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+    }
+
+    .hero-message {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 1.4rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      font-size: 1.05rem;
+    }
+
+    .hero-message strong { color: #f472b6; font-weight: 700; }
+
+    .quick-btn {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .quick-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .search-box { position: relative; margin-bottom: 1.5rem; }
+
+    .search-input {
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #ec4899;
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 110%; left: 0; right: 0;
+      background: rgba(15, 10, 30, 0.95);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      max-height: 220px;
+      overflow-y: auto;
+      display: none;
+      z-index: 20;
+    }
+
+    .dropdown-item {
+      padding: 14px 20px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .dropdown-item:hover { background: rgba(236, 72, 153, 0.25); }
+
+    #tributeDisplay {
+      display: none;
+      margin-top: 2rem;
+      animation: popIn 0.6s ease-out forwards;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .profile-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 4px solid #f472b6;
+      box-shadow: 0 0 30px rgba(244, 114, 182, 0.7);
+      margin-bottom: 1.2rem;
+      background: #1e1b4b;
+    }
+
+    .quote-box {
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-style: italic;
+      color: #f8fafc;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Audio Element -->
+  <audio id="bgMusic" loop src="audio/music.mp3"></audio>
+
+  <!-- Audio Control Button -->
+  <button id="musicControlBtn" class="music-btn" onclick="toggleAudio()">🎵 Play Music</button>
+
+  <div class="card">
+    <div class="badge">✨ Happy Teacher's Day ✨</div>
+
+    <div class="hero-message">
+      <p>To every teacher who inspires curiosity, nurtures growth, and lights the way forward—<strong>Thank you for your tireless heart, wisdom, and leadership!</strong> 💖</p>
+    </div>
+
+    <button class="quick-btn" onclick="selectTeacher(teachers[0])">
+      🎓 Express Gratitude
+    </button>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search professor's name..." oninput="filterTeachers()">
+      <div id="dropdown" class="dropdown"></div>
+    </div>
+
+    <div id="tributeDisplay">
+      <img id="teacherPhoto" class="profile-img" src="" alt="Teacher Profile" onerror="handleImageError(this)">
+      <h2 id="teacherName" style="margin-bottom: 0.8rem; color: #f472b6; font-size: 1.8rem;"></h2>
+      <div class="quote-box">
+        <p id="teacherQuote" style="margin: 0; font-size: 1.05rem;"></p>
+        <br>
+        <strong style="color: #a78bfa;">— Warm regards from Team IETE ❤️</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Animated Background */
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.8;
+        this.speedY = (Math.random() - 0.5) * 0.8;
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.color = ['#ec4899', '#8b5cf6', '#3b82f6', '#f472b6'][Math.floor(Math.random() * 4)];
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* Audio Controller */
+    const audio = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicControlBtn');
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          musicBtn.innerText = '⏸ Pause Music';
+        }).catch(err => console.log('Audio playback prevented: ', err));
+      } else {
+        audio.pause();
+        musicBtn.innerText = '🎵 Play Music';
+      }
+    }
+
+    function playAudioOnInteraction() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          musicBtn.innerText = '⏸ Pause Music';
+        }).catch(err => console.log('Autoplay blocked by browser policy: ', err));
+      }
+    }
+
+    /* Teacher Dataset */
+    const teachers = [
+      { name: "Dr. Sanjay Deshmukh", photo: "images/sanjay_deshmukh.png", quote: "Your leadership, vision, and inspirational teaching inspire us to dream big and work hard toward our goals!" },
+      { name: "Prof. Nazahat Balur", photo: "images/nazahat_balur.png", quote: "Your patience and encouraging teaching style make complex concepts feel effortless. Thank you for always believing in us!" },
+      { name: "Prof. Dipashri Kale", photo: "images/dipashri_kale.png", quote: "Thank you for your encouraging words, structured lessons, and constant willingness to help us succeed!" },
+      { name: "Prof. Ragini Bhoyar", photo: "images/ragini_bhoyar.png", quote: "Thank you for bringing passion and clarity into the classroom, constantly motivating us to achieve our potential!" },
+      { name: "Prof. Sanjana Repal", photo: "images/sanjana_repal.png", quote: "Thank you for creating a supportive environment where asking questions and learning new skills is always celebrated!" },
+      { name: "Prof. Sneha Burnase", photo: "images/sneha_burnase.jpg", quote: "Thank you for your grace, kindness, and continuous guidance. You inspire us to learn more and reach higher!" },
+      { name: "Prof. Subhashini", photo: "images/subhashini.png", quote: "Thank you for your structured guidance, patient explanations, and dedication!" },
+      { name: "Prof. Trishala Dixit", photo: "images/trishala_dixit.png", quote: "Thank you for being a wonderful mentor, inspiring us through your passion!" },
+      { name: "Prof. Keshav Chougule", photo: "images/keshav_chougule.jpg", quote: "Your thorough explanations and patient guidance help us build strong foundations!" },
+      { name: "Prof. Manisha Ahirrao", photo: "images/manisha_ahirrao.jpg", quote: "Thank you for your warm mentorship, unwavering support, and engaging lessons!" },
+      { name: "Dr. Viplav Soliv", photo: "images/viplav_soliv.jpg", quote: "Your research-driven approach and technical insights open up exciting new horizons for us!" },
+      { name: "Prof. Surendra Sutar", photo: "images/surendra_sutar.jpg", quote: "Thank you for instilling discipline, technical depth, and confidence in us!" },
+      { name: "Dr. Kishor Sawarkar", photo: "images/kishor_sawarkar.jpg", quote: "Thank you for sharing your vast academic wisdom and pushing us toward technical excellence!" },
+      { name: "Prof. Snehal Belkar", photo: "images/snehal_belkar.jpg", quote: "Your positive energy and approachable style make learning a truly enjoyable experience!" },
+      { name: "Prof. Premdas Pawar", photo: "images/premdas_pawar.jpg", quote: "Thank you for your steadfast commitment to our growth and teaching us to tackle challenges!" },
+      { name: "Dr. Rehmani Akhtar", photo: "images/rehmani_akhtar.jpg", quote: "Thank you for fostering critical thinking and intellectual curiosity!" },
+      { name: "Prof. Devashree Patil", photo: "images/devashree_patil.jpg", quote: "Your dedication to clarity and student success makes a lasting difference!" },
+      { name: "Prof. Ankit Deogharkar", photo: "images/ankit.jpg", quote: "Your practical insights and interactive teaching method help us tackle every challenge with confidence!" },
+      { name: "Dr. Poonam Sonar", photo: "images/poonam_sonar.jpg", quote: "Thank you for your incredible support, inspiring dedication, and guiding us toward academic excellence!" },
+      { name: "Prof. Subhash", photo: "images/Subhash.jpg", quote: "Thank you for your steady encouragement, thorough lessons, and unwavering commitment to our success!" },
+      { name: "Prof. Gopal", photo: "images/gopal.jpg", quote: "Your energetic approach and constant mentorship motivate us to continuously strive for excellence!" }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const dropdown = document.getElementById('dropdown');
+
+    function filterTeachers() {
+      const query = searchInput.value.toLowerCase().trim();
+      dropdown.innerHTML = '';
+
+      if (!query) {
+        dropdown.style.display = 'none';
+        return;
+      }
+
+      const matches = teachers.filter(t => t.name.toLowerCase().includes(query));
+
+      if (matches.length > 0) {
+        dropdown.style.display = 'block';
+        matches.forEach(t => {
+          const item = document.createElement('div');
+          item.className = 'dropdown-item';
+          item.innerText = t.name;
+          item.onclick = () => selectTeacher(t);
+          dropdown.appendChild(item);
+        });
+      } else {
+        dropdown.style.display = 'none';
+      }
+    }
+
+    function selectTeacher(teacher) {
+      playAudioOnInteraction();
+
+      searchInput.value = teacher.name;
+      dropdown.style.display = 'none';
+
+      document.getElementById('teacherName').innerText = teacher.name;
+      document.getElementById('teacherPhoto').src = teacher.photo;
+      document.getElementById('teacherQuote').innerText = `“${teacher.quote}”`;
+      document.getElementById('tributeDisplay').style.display = 'block';
+
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    }
+
+    function handleImageError(img) {
+      const name = document.getElementById('teacherName').innerText || 'Teacher';
+      img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5cf6&color=fff&size=200`;
+    }
+  </script>
+</body>
+</html>
