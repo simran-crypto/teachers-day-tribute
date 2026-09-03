@@ -159,11 +159,12 @@
       background: #1e1b4b;
     }
 
-    /* Traditional Left-Aligned Letter Salutation */
+    /* Fixed Left-Aligned Letter Salutation */
     .letter-salutation {
-      text-align: left;
-      margin-bottom: 1.2rem;
-      padding-left: 10px;
+      text-align: left !important;
+      width: 100%;
+      margin: 0 0 1.2rem 0;
+      padding-left: 25px;
       font-family: 'Georgia', serif;
     }
 
@@ -172,15 +173,17 @@
       color: #cbd5e1;
       font-style: italic;
       display: block;
+      text-align: left !important;
     }
 
     .salutation-name {
       font-size: 1.8rem;
       color: #f472b6;
       font-weight: 700;
-      margin-left: 2.2rem; /* Indents the professor's name below 'To,' */
+      margin-left: 2.5rem;
       margin-top: 4px;
       display: block;
+      text-align: left !important;
     }
 
     .quote-box {
@@ -218,7 +221,7 @@
     <div id="tributeDisplay">
       <img id="teacherPhoto" class="profile-img" src="" alt="Teacher Profile" onerror="handleImageError(this)">
       
-      <!-- Left-Aligned Formal Letter Format -->
+      <!-- Strictly Left-Aligned Letter Salutation -->
       <div class="letter-salutation">
         <span class="salutation-prefix">To ,</span>
         <span id="teacherName" class="salutation-name"></span>
