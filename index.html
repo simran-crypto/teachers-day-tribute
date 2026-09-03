@@ -159,11 +159,10 @@
       background: #1e1b4b;
     }
 
-    /* Formal Letter "To ," Layout */
+    /* Centered Letter Salutation Block */
     .letter-salutation {
-      text-align: left;
+      text-align: center;
       margin: 0 auto 1.2rem auto;
-      max-width: 320px;
       font-family: 'Georgia', serif;
     }
 
@@ -175,10 +174,9 @@
     }
 
     .salutation-name {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       color: #f472b6;
       font-weight: 700;
-      margin-left: 2.8rem;
       margin-top: 4px;
       display: block;
     }
@@ -217,7 +215,7 @@
     <div id="tributeDisplay">
       <img id="teacherPhoto" class="profile-img" src="" alt="Teacher Profile" onerror="handleImageError(this)">
       
-      <!-- Letter Salutation Block -->
+      <!-- Centered Letter Salutation Block -->
       <div class="letter-salutation">
         <span class="salutation-prefix">To ,</span>
         <span id="teacherName" class="salutation-name"></span>
@@ -333,7 +331,6 @@
       searchInput.value = teacher.name;
       dropdown.style.display = 'none';
 
-      // Sets strictly the professor's name (e.g. Dr. Poonam Sonar) without "Respected"
       document.getElementById('teacherName').innerText = teacher.name;
       document.getElementById('teacherPhoto').src = teacher.photo;
       document.getElementById('teacherQuote').innerText = `“${teacher.quote}”`;
