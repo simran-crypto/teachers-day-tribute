@@ -29,30 +29,6 @@
       pointer-events: none;
     }
 
-    .music-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 50px;
-      backdrop-filter: blur(10px);
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .music-btn:hover {
-      background: rgba(236, 72, 153, 0.3);
-      border-color: #ec4899;
-      transform: scale(1.05);
-    }
-
     .card {
       position: relative;
       z-index: 10;
@@ -198,12 +174,6 @@
 
   <canvas id="particles-canvas"></canvas>
 
-  <!-- Audio Element -->
-  <audio id="bgMusic" loop src="audio/music.mp3"></audio>
-
-  <!-- Audio Control Button -->
-  <button id="musicControlBtn" class="music-btn" onclick="toggleAudio()">🎵 Play Music</button>
-
   <div class="card">
     <div class="badge">✨ Happy Teacher's Day ✨</div>
 
@@ -232,7 +202,6 @@
   </div>
 
   <script>
-    /* Animated Background */
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -278,31 +247,7 @@
     }
     animateParticles();
 
-    /* Audio Controller */
-    const audio = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicControlBtn');
-
-    function toggleAudio() {
-      if (audio.paused) {
-        audio.play().then(() => {
-          musicBtn.innerText = '⏸ Pause Music';
-        }).catch(err => console.log('Audio playback prevented: ', err));
-      } else {
-        audio.pause();
-        musicBtn.innerText = '🎵 Play Music';
-      }
-    }
-
-    function playAudioOnInteraction() {
-      if (audio.paused) {
-        audio.play().then(() => {
-          musicBtn.innerText = '⏸ Pause Music';
-        }).catch(err => console.log('Autoplay blocked by browser policy: ', err));
-      }
-    }
-
-    /* Teacher Dataset */
-    /* Teacher Dataset - Updated paths to match root directory */
+    /* Teacher Dataset matching exact root directory filenames */
     const teachers = [
       { name: "Dr. Sanjay Deshmukh", photo: "sanjay_deshmukh.png", quote: "Your leadership, vision, and inspirational teaching inspire us to dream big and work hard toward our goals!" },
       { name: "Prof. Nazahat Balur", photo: "nazahat_balur.png", quote: "Your patience and encouraging teaching style make complex concepts feel effortless. Thank you for always believing in us!" },
@@ -356,8 +301,6 @@
     }
 
     function selectTeacher(teacher) {
-      playAudioOnInteraction();
-
       searchInput.value = teacher.name;
       dropdown.style.display = 'none';
 
@@ -373,11 +316,6 @@
       const name = document.getElementById('teacherName').innerText || 'Teacher';
       img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5cf6&color=fff&size=200`;
     }
-    function handleImageError(img) {
-  const name = document.getElementById('teacherName').innerText || 'Teacher';
-  img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5cf6&color=fff&size=200`;
-}
   </script>
-  
 </body>
 </html>
