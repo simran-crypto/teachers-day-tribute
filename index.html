@@ -155,30 +155,30 @@
       object-position: top center;
       border: 4px solid #f472b6;
       box-shadow: 0 0 30px rgba(244, 114, 182, 0.7);
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
       background: #1e1b4b;
     }
 
-    /* Formal Letter "To," Indented Layout */
+    /* Traditional Left-Aligned Letter Salutation */
     .letter-salutation {
       text-align: left;
-      margin: 0 auto 1.2rem auto;
-      max-width: 340px;
+      margin-bottom: 1.2rem;
+      padding-left: 10px;
       font-family: 'Georgia', serif;
     }
 
     .salutation-prefix {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       color: #cbd5e1;
       font-style: italic;
       display: block;
     }
 
     .salutation-name {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       color: #f472b6;
       font-weight: 700;
-      margin-left: 2.5rem; /* Creates the letter indentation */
+      margin-left: 2.2rem; /* Indents the professor's name below 'To,' */
       margin-top: 4px;
       display: block;
     }
@@ -191,6 +191,7 @@
       font-style: italic;
       color: #f8fafc;
       line-height: 1.6;
+      text-align: center;
     }
   </style>
 </head>
@@ -217,7 +218,7 @@
     <div id="tributeDisplay">
       <img id="teacherPhoto" class="profile-img" src="" alt="Teacher Profile" onerror="handleImageError(this)">
       
-      <!-- Letter Salutation Block -->
+      <!-- Left-Aligned Formal Letter Format -->
       <div class="letter-salutation">
         <span class="salutation-prefix">To ,</span>
         <span id="teacherName" class="salutation-name"></span>
