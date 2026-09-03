@@ -159,7 +159,7 @@
       background: #1e1b4b;
     }
 
-    /* Letter "To," Heading Layout */
+    /* Formal Letter "To ," Layout */
     .letter-salutation {
       text-align: left;
       margin: 0 auto 1.2rem auto;
@@ -333,6 +333,7 @@
       searchInput.value = teacher.name;
       dropdown.style.display = 'none';
 
+      // Sets strictly the professor's name (e.g. Dr. Poonam Sonar) without "Respected"
       document.getElementById('teacherName').innerText = teacher.name;
       document.getElementById('teacherPhoto').src = teacher.photo;
       document.getElementById('teacherQuote').innerText = `“${teacher.quote}”`;
