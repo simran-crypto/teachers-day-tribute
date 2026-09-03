@@ -192,7 +192,7 @@
 
     <div id="tributeDisplay">
       <img id="teacherPhoto" class="profile-img" src="" alt="Teacher Profile" onerror="handleImageError(this)">
-      <h2 id="teacherName" style="margin-bottom: 0.8rem; color: #f472b6; font-size: 1.8rem;"></h2>
+      <h2 id="teacherName" style="margin-bottom: 0.8rem; color: #f472b6; font-size: 1.8rem; line-height: 1.3;"></h2>
       <div class="quote-box">
         <p id="teacherQuote" style="margin: 0; font-size: 1.05rem;"></p>
         <br>
@@ -304,8 +304,8 @@
       searchInput.value = teacher.name;
       dropdown.style.display = 'none';
 
-      // Adds "Respected " prefix dynamically to show "Respected Prof. Sanjana Repal" on the tribute display
-      document.getElementById('teacherName').innerText = `Respected ${teacher.name}`;
+      // Formats header with "Respected ," on its own line above the name
+      document.getElementById('teacherName').innerHTML = `Respected ,<br>${teacher.name}`;
       document.getElementById('teacherPhoto').src = teacher.photo;
       document.getElementById('teacherQuote').innerText = `“${teacher.quote}”`;
       document.getElementById('tributeDisplay').style.display = 'block';
@@ -314,7 +314,7 @@
     }
 
     function handleImageError(img) {
-      const name = document.getElementById('teacherName').innerText || 'Teacher';
+      const name = searchInput.value || 'Teacher';
       img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5cf6&color=fff&size=200`;
     }
   </script>
